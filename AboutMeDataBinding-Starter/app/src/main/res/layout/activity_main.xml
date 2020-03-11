@@ -35,6 +35,7 @@ limitations under the License. -->
         <TextView
             android:id="@+id/nickname_text"
             style="@style/NameStyle"
+            android:text="@={myName.nickname}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
