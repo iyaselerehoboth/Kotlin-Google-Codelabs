@@ -37,10 +37,14 @@ import com.example.android.aboutme.databinding.ActivityMainBinding
  */
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    lateinit var myName: MyName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        myName = MyName("Aleks Haecky")
+
+        binding.myName = myName
         binding.doneButton.setOnClickListener {
             addNickname(it)
         }
@@ -52,10 +56,11 @@ class MainActivity : AppCompatActivity() {
     private fun addNickname(view: View) {
 
         binding.apply {
-            binding.nicknameText.text = binding.nicknameEdit.text.toString()
-            binding.nicknameEdit.visibility = View.GONE
-            binding.doneButton.visibility = View.GONE
-            binding.nicknameText.visibility = View.VISIBLE
+            myName?.nickname = binding.nicknameEdit.text.toString()
+            invalidateAll()
+            nicknameEdit.visibility = View.GONE
+            doneButton.visibility = View.GONE
+            nicknameText.visibility = View.VISIBLE
         }
 
         // Hide the keyboard.
