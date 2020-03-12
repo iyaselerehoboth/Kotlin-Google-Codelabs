@@ -19,11 +19,15 @@ package com.example.android.navigation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var drawerLayout: DrawerLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         @Suppress("UNUSED_VARIABLE")
@@ -32,12 +36,17 @@ class MainActivity : AppCompatActivity() {
 
         val navController = this.findNavController(R.id.myNavHostFragment)
 
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        drawerLayout = binding.drawerLayout
 
+        //To Add the back button & drawer btn into the App bar with navigation controller.
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+
+        //To add Navigation Drawer with the NavController.
+        NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
-        return super.onSupportNavigateUp()
+        return NavigationUI.navigateUp(navController, drawerLayout)
     }
 }
